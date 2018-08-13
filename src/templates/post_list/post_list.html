@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+		{% block content %}
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li class="active"><a href="{% url 'posts:list' %}">Latest</a></li>
+					<li><a href="{% url 'posts:politis' %}">Politics</a></li>
+					<li><a href="{% url 'posts:gist' %}">Gists</a></li>
+					<li><a href="{% url 'posts:event' %}">Events</a></li>
+					<li><a href="{% url 'posts:celes' %}">Celebrities</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+				</ul>
+			</nav>
+
+		<!-- Main -->
+			<div id="main">
+
+		<section class="posts">
+			{% for obj in object_list %}
+			<article>
+				<header>
+					<span class="date">{{ obj.publish }}</span>
+					{% if obj.draft %}<h3>Draft</h3>{% endif %}{% if obj.publish > today %}<h3>Future Post</h3>{% endif %}
+					<h2><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h2>
+				</header>
+				{% if obj.image %}
+				<a href="{{ obj.get_absolute_url }}" class="image fit"><img src="{{ obj.image.url }}" alt="article image" /></a>
+				{% endif %}
+				<p>{{ obj.content|linebreaks|truncatechars:100 }}</p>
+				<ul class="actions">
+					<li><a href="{{ obj.get_absolute_url }}" class="button">Full Story</a></li>
+				</ul>
+			</article>
+
+			{% endfor %}
+		</section>
+
+		<footer>
+			<div class="pagination">
+				<!--<a href="#" class="previous">Prev</a>-->
+				{% if object_list.has_previous %}
+				<a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">Prev.</a>
+				{% endif %}
+				<a href="#" class="page active"> {{ object_list.number }} of {{ object_list.paginator.num_pages }}	</a>
+				<span class="extra">&hellip;</span>
+				{% if object_list.has_next %}
+					<a href="?{{ page_request_var }}={{ object_list.next_page_number }}">Next</a>
+					<span class="extra">&hellip;</span>
+					<a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}">last &raquo;</a>
+				{% endif %}
+
+			</div>
+		</footer>
+
+		{% endblock content %}
+
+

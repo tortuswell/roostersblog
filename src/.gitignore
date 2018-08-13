@@ -1,0 +1,8 @@
+.py[cod]
+settings/local.py
+db.sqlite3
+__pycache__
+*pyc
+*bin
+*include
+*lib

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+	<head>
+		<meta charset="utf-8" />
+		<title>Creat article</title>
+	</head>
+	<body>
+		<div class="col-md-6 col-md-offset-3">
+			<h1> Create Article </h1>
+			
+			<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+			{{ form.as_p }}
+			<input type='submit' class='btn btn-secondary' value='Create Post' />
+				
+			</form>
+		</div>
+	</body>
+</html>
+		

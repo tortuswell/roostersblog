@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+		{% block content %}
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="{% url 'posts:list' %}">Latest</a></li>
+					<li><a href="{% url 'posts:politis' %}">Politics</a></li>
+					<li><a href="{% url 'posts:gist' %}">Gists</a></li>
+					<li class="active"><a href="{% url 'posts:event' %}">Events</a></li>
+					<li><a href="{% url 'posts:celes' %}">Celebrities</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+				</ul>
+			</nav>
+
+		<!-- Main -->
+			<div id="main">
+
+		<section class="posts">
+			{% for object in queryset_politics_list %}
+			<article>
+				<header>
+					<span class="date">{{ obj.publish }}</span>
+					{% if object.draft %}<h3>Draft</h3>{% endif %}{% if object.publish > today %}<h3>Future Post</h3>{% endif %}
+					<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+				</header>
+				{% if object.image %}
+				<a href="{{ object.get_absolute_url }}" class="image fit"><img src="{{ object.image.url }}" alt="article image" /></a>
+				{% endif %}
+				<p>{{ object.content|linebreaks|truncatechars:100 }}</p>
+				<ul class="actions">
+					<li><a href="{{ object.get_absolute_url }}" class="button">Full Story</a></li>
+				</ul>
+			</article>
+
+			{% endfor %}
+		</section>
+			
+		<footer>
+			<div class="pagination">
+				<!--<a href="#" class="previous">Prev</a>-->
+				{% if queryset_politics_list.has_previous %}
+				<a href="?{{ page_request_var }}={{ queryset_politics_list.previous_page_number }}">Prev.</a>
+				{% endif %}
+				<a href="#" class="page active"> {{ queryset_politics_list.number }} of {{ queryset_politics_list.paginator.num_pages }}	</a>
+				<span class="extra">&hellip;</span>
+				{% if queryset_politics_list.has_next %}
+					<a href="?{{ page_request_var }}={{ queryset_politics_list.next_page_number }}">Next</a>
+					<span class="extra">&hellip;</span>
+					<a href="?{{ page_request_var }}={{ queryset_politics_list.paginator.num_pages }}">last &raquo;</a>
+				{% endif %}
+
+			</div>
+		</footer>
+
+		{% endblock content %}

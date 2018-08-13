@@ -1,0 +1,32 @@
+{% extends "base.html"%}
+{% block content %}
+		
+		<!-- <div class="col-md-6 offset-md-2">
+			{% if instance.image %}
+			<img src="{{ instance.image.url }}" class="img-fluid img-responsive" alt="article image"/>
+			{% endif %}
+			<h1>The {{ title }} <small> -{{ instance.timestamp }}</small></h1>
+		
+		<p id="readpost">{{ instance.content }}<p/><br/>
+		</div> -->
+
+	<div id="main">
+		<section class="post">
+			<header class="major">
+				<span class="date">{{ instance.publish }} <small>{% if instance.draft %} <span style="color: tomato;">Draft</span>{% endif %}</small></span>
+				<h1>This is a<br />
+				Generic Page</h1>
+				<p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
+				facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
+				amet nullam sed etiam veroeros.</p>
+			</header>
+			{% if instance.image %}
+			<div class="image main"><img src="{{ instance.image.url }}" alt="article image" /></div>
+			{% endif %}
+			<p>{{ instance.content }}</p>
+			<p><small>{{ instance.user  }}</small></p>
+			<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+		</section>
+
+
+{% endblock content %}
